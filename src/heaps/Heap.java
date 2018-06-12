@@ -4,7 +4,7 @@ public interface Heap {
 
 	int size();
 
-	void clear();
+	int value(int key);
 
 	int findMin();
 
