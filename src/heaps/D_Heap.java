@@ -31,13 +31,13 @@ public class D_Heap implements PriorityQ {
 		for(int i=0; i<size; i++) {
 			hp[i+1] = i;
 		}
-		if(size == 1) return;
-		for(int k=(size+D-2)/D; k>=1; k--) {
-			downward(k);
-		}
 		hpRev = new int[size];
 		for(int i=1; i<=size; i++) {
 			hpRev[hp[i]] = i;
+		}
+		if(size == 1) return;
+		for(int k=(size+D-2)/D; k>=1; k--) {
+			downward(k);
 		}
 	}
 
@@ -82,7 +82,7 @@ public class D_Heap implements PriorityQ {
 
 	/**
 	 * {@inheritDoc}
-	 * <p>時間計算量は、d>0のときはO((log_D(n)))で、d<0のときはO(D*(log_D(n)))です。
+	 * <p>時間計算量は、{@code d>0}のときはO((log_D(n)))で、{@code d<0}のときはO(D*(log_D(n)))です。
 	 */
 	@Override
 	public void decreaseValue(int key, int d) {
@@ -94,7 +94,7 @@ public class D_Heap implements PriorityQ {
 	private void downward(int p) {
 		int ch = D * (p - 1) + 2;
 		if(ch > size) return;
-		int rc = Math.min(D*p+1,  size);
+		int rc = Math.min(D*p+1, size);
 		int minC = ch;
 		for(; ch<=rc; ch++) {
 			if(val[hp[ch]] < val[hp[minC]]) {
@@ -109,7 +109,7 @@ public class D_Heap implements PriorityQ {
 
 	private void upward(int c) {
 		if(c == 1) return;
-		int p = (size+D-2) / D;
+		int p = (c+D-2) / D;
 		if(val[hp[c]] < val[hp[p]]) {
 			swap(p, c);
 			upward(p);
@@ -123,5 +123,35 @@ public class D_Heap implements PriorityQ {
 		hpRev[hp[i]] = i;
 		hpRev[hp[j]] = j;
 	}
+// テスト用
+//	public void show() {
+//		int N = 30;
+//		if(!check()) {
+//			System.out.println("bug detected!");
+//		}
+//		System.out.println("size = " + size);
+//		System.out.print("val: ");
+//		for(int i=0; i<N; i++) {
+//			System.out.print(val[i] + " ");
+//		}
+//		System.out.print("\nhp: ");
+//		for(int i=0; i<N; i++) {
+//			System.out.print(hp[i+1] + " ");
+//		}
+//		System.out.print("\nhpRev: ");
+//		for(int i=0; i<N; i++) {
+//			System.out.print(hpRev[i] + " ");
+//		}
+//		System.out.println();
+//	}
+//
+//	private boolean check() {
+//		for(int i=1; i<= size; i++) {
+//			if(hpRev[hp[i]] != i) return false;
+//			if(i==1) continue;
+//			if(val[hp[i]] < val[hp[(i+D-2)/D]]) return false;
+//		}
+//		return true;
+//	}
 
 }
