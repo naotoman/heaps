@@ -1,14 +1,27 @@
 package heaps;
 
-public class D_Heap implements Heap {
+/**
+ * <p>{@code PriorityQ}インターフェースのd-ary heapによる実装です。
+ * コンストラクタで何分木にするか指定します。
+ */
+public class D_Heap implements PriorityQ {
 
 	private final int D;
+
 	private int val[];
 
 	private int size;
 	private int hp[];
 	private int hpRev[];
 
+
+	/**
+	 * 木の分岐数が第一引数の{@code D}であるヒープを構成します。
+	 * 第二引数の{@code ary}は、ヒープに入れられる全要素です。{@code ary}中のindexがkeyに、要素がvalに対応します。
+	 * <p>時間計算量はO(n)です。
+	 * @param D 木の分岐数{@code (>=2)}
+	 * @param ary ヒープに入れられる全要素
+	 */
 	public D_Heap(int D, int[] ary) {
 		this.D = D;
 		size = ary.length;
@@ -28,31 +41,49 @@ public class D_Heap implements Heap {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * <p>時間計算量はO(1)です。
+	 */
 	@Override
 	public int size() {
 		return size;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * <p>時間計算量はO(1)です。
+	 */
 	@Override
 	public int value(int key) {
 		return val[key];
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * <p>時間計算量はO(1)です。
+	 */
 	@Override
 	public int findMin() {
 		return hp[1];
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * <p>時間計算量はO(D*(log_D(n)))です。
+	 */
 	@Override
-	public int deleteMin() {
-		int minVal = val[hp[1]];
+	public void deleteMin() {
 		hp[1] = hp[size];
 		hpRev[hp[1]] = 1;
 		size--;
 		downward(1);
-		return minVal;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * <p>時間計算量は、d>0のときはO((log_D(n)))で、d<0のときはO(D*(log_D(n)))です。
+	 */
 	@Override
 	public void decreaseValue(int key, int d) {
 		val[key] -= d;
