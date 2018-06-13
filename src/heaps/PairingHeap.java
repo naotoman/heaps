@@ -70,6 +70,7 @@ public class PairingHeap implements PriorityQ {
 	 */
 	@Override
 	public void deleteMin() {
+		size--;
 		root = mergePairs(leftCh[root]);
 	}
 
