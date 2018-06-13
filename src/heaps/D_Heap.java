@@ -35,7 +35,6 @@ public class D_Heap implements PriorityQ {
 		for(int i=1; i<=size; i++) {
 			hpRev[hp[i]] = i;
 		}
-		if(size == 1) return;
 		for(int k=(size+D-2)/D; k>=1; k--) {
 			downward(k);
 		}
@@ -82,13 +81,24 @@ public class D_Heap implements PriorityQ {
 
 	/**
 	 * {@inheritDoc}
-	 * <p>時間計算量は、{@code d>0}のときはO((log_D(n)))で、{@code d<0}のときはO(D*(log_D(n)))です。
+	 * <p>時間計算量はO((log_D(n)))です。
 	 */
 	@Override
 	public void decreaseValue(int key, int d) {
 		val[key] -= d;
-		if(d > 0) upward(hpRev[key]);
-		else downward(hpRev[key]);
+		upward(hpRev[key]);
+	}
+
+	/**
+	 * {@link #decreaseValue(int, int)}の逆の操作で、指定されたkeyをもつ要素のvalを指定された値dだけ増加させます。
+	 * 存在しないkeyを指定した場合の動作は未定義です。
+	 * <p>時間計算量はO(D*(log_D(n)))です。
+	 * @param key 減少させるvalに関連付けられたkey
+	 * @param d 指定されたkeyをもつ要素のvalを増加させる値(d>=0)
+	 */
+	public void increaseValue(int key, int d) {
+		val[key] += d;
+		downward(hpRev[key]);
 	}
 
 	private void downward(int p) {

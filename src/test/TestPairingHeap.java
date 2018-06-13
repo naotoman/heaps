@@ -1,14 +1,14 @@
 package test;
 
-import heaps.D_Heap;
+import heaps.PairingHeap;
 
 /**
- * D_Heapをテストするために用いたメイン関数を持つクラスです。
+ * PairingHeapをテストするために用いたメイン関数を持つクラスです。
  * それ以上の意味はありません。
  */
-public class MainTest {
+public class TestPairingHeap {
 
-	private static final int N = 30;
+	private static final int N = 10;
 
 	public static void main(String[] args) {
 
@@ -17,17 +17,19 @@ public class MainTest {
 			ary[i] = (int)(Math.random() * 100);
 		}
 
-		D_Heap hp = new D_Heap(2, ary);
-//		hp.show();
+		PairingHeap hp = new PairingHeap(ary);
+
+		//hp.show();
+
 		for(int i=0; i<5; i++) {
-			hp.decreaseValue((int)(Math.random()*N), (int)(Math.random()*100) - 50);
+			hp.decreaseValue((int)(Math.random()*N), (int)(Math.random()*50));
 		}
+
 		for(int i=0; i<N; i++) {
 			int key = hp.findMin();
 			int val = hp.value(key);
-			hp.deleteMin();
 			System.out.print(val + " ");
+			hp.deleteMin();
 		}
-
 	}
 }

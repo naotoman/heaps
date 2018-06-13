@@ -36,10 +36,10 @@ public interface PriorityQ {
 	void deleteMin();
 
 	/**
-	 * 指定されたkeyをもつ要素のvalを、指定された値{@code d}だけ減少させます。{@code d<0}の場合は、{@code -d}だけ増加させます。
+	 * 指定されたkeyをもつ要素のvalを、指定された値{@code d}だけ減少させます。
 	 * 存在しないkeyを指定した場合の動作は未定義です。
 	 * @param key 減少させるvalに関連付けられたkey
-	 * @param d 指定されたkeyをもつ要素のvalを減少させる値
+	 * @param d 指定されたkeyをもつ要素のvalを減少させる値{@code (d>=0)}
 	 */
 	void decreaseValue(int key, int d);
 
