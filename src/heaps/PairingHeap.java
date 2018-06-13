@@ -12,14 +12,15 @@ public class PairingHeap implements PriorityQ {
 
 	private int size;
 
-	private int leftCh[];
-	private int rightSib[];
-	private int leftSib[];
 	private int root;
+	private int leftCh[];
+	private int rightSib[];//root以外で有効
+	private int leftSib[];//root以外で有効.また、各階層上で最も左のノードではその親ノードを指す．
 
 
 	/**
 	 * 指定された要素からなるPairingHeapを構成します。{@code ary}中のindexがkeyに、要素がvalに対応します。
+	 * <p>時間計算量はO(n)です。
 	 * @param ary ヒープに入れられる全要素
 	 */
 	public PairingHeap(int[] ary) {
@@ -27,12 +28,12 @@ public class PairingHeap implements PriorityQ {
 		val = new int[size];
 		System.arraycopy(ary, 0, val, 0, size);
 		leftCh = new int[size];
-		rightSib = new int[size];//root以外で有効
-		leftSib = new int[size];//root以外で有効.また、各階層上で最も左のノードではその親ノードを指す．
+		rightSib = new int[size];
+		leftSib = new int[size];
 		Arrays.fill(leftCh, -1);
 		Arrays.fill(rightSib, -1);
-		root = -1;
-		for(int i=0; i<size; i++) {
+		root = 0;
+		for(int i=1; i<size; i++) {
 			root = merge(root, i);
 		}
 	}
