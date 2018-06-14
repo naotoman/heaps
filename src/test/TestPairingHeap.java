@@ -12,6 +12,8 @@ public class TestPairingHeap {
 
 	public static void main(String[] args) {
 
+		System.out.println("Pairing Test");
+
 		int[] ary = new int[N];
 		for(int i=0; i<N; i++) {
 			ary[i] = (int)(Math.random() * 100);
