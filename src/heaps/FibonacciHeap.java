@@ -1,7 +1,14 @@
 package heaps;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
+
+/**
+ * <p>{@code PriorityQ}インターフェースのFibonacci Heapによる実装です。
+ * 規定の計算量(Amortized)が達成できるように実装しました。
+ */
 public class FibonacciHeap implements PriorityQ {
 
 	private int val[];
@@ -78,6 +85,10 @@ public class FibonacciHeap implements PriorityQ {
 		return head;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * <p>時間計算量(Amortized)はO(logn)です。
+	 */
 	@Override
 	public void deleteMin() {
 		if(size-- == 1) return;
@@ -133,12 +144,52 @@ public class FibonacciHeap implements PriorityQ {
 			if(val[n] < val[minKey]) minKey = n;
 		}
 		head = minKey;
+		assert deleteMinCheck();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * <p>時間計算量(Amortized)はO(1)です。
+	 */
 	@Override
 	public void decreaseValue(int key, int d) {
-		// TODO Auto-generated method stub
+		val[key] -= d;
+		int y = parent[key];
+		if(y != -1 && val[key] < val[y]) {
+			cut(key, y);
+			cascadingCut(y);
+		}
+		if(val[key] < val[head]) {
+			head = key;
+		}
+	}
 
+	private void cut(int x, int y) {
+		right[left[x]] = right[x];
+		left[right[x]] = left[x];
+		child[y] = right[x];
+		if(right[x] == x) {
+			child[y] = -1;
+		}
+		deg[y]--;
+		right[x] = head;
+		left[x] = left[head];
+		right[left[x]] = x;
+		left[head] = x;
+		parent[x] = -1;
+		mark[x] = false;
+
+	}
+
+	private void cascadingCut(int y) {
+		int z = parent[y];
+		if(mark[y]) {
+			cut(y, z);
+			cascadingCut(z);
+		}
+		else if(z != -1) {
+			mark[y] = true;
+		}
 	}
 
 	private void link(int y, int x) {
@@ -159,6 +210,23 @@ public class FibonacciHeap implements PriorityQ {
 		}
 		deg[x]++;
 		mark[y] = false;
+	}
+
+	/*
+	 * deleteMinの後にルートが持つ子の数がdistinctになっているか調べる。
+	 */
+	private boolean deleteMinCheck() {
+		Set<Integer> rc = new HashSet<>();
+		rc.add(deg[head]);
+		int now = right[head];
+		while(now != head) {
+			if(rc.contains(deg[now])) {
+				return false;
+			}
+			rc.add(deg[now]);
+			now = right[now];
+		}
+		return true;
 	}
 
 }

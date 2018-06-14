@@ -7,13 +7,13 @@ import heaps.PriorityQ;
 
 public class MainTest {
 
-	private static final int N = 100000;
+	private static final int N = 1000000;
 
 	public static void main(String[] args) {
 
 		int[] ary = new int[N];
 		for(int i=0; i<N; i++) {
-			ary[i] = (int)(Math.random() * 100000);
+			ary[i] = (int)(Math.random() * 10000000);
 		}
 
 		System.out.println("D_Heap: " + test(0, ary)/1000000.0);

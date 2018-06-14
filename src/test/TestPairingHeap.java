@@ -8,7 +8,7 @@ import heaps.PairingHeap;
  */
 public class TestPairingHeap {
 
-	private static final int N = 10;
+	private static final int N = 100;
 
 	public static void main(String[] args) {
 
@@ -23,9 +23,9 @@ public class TestPairingHeap {
 
 		//hp.show();
 
-		for(int i=0; i<5; i++) {
-			hp.decreaseValue((int)(Math.random()*N), (int)(Math.random()*50));
-		}
+//		for(int i=0; i<5; i++) {
+//			hp.decreaseValue((int)(Math.random()*N), (int)(Math.random()*50));
+//		}
 
 		for(int i=0; i<N; i++) {
 			int key = hp.findMin();

@@ -3,7 +3,7 @@ package heaps;
 import java.util.Arrays;
 
 /**
- * <p>{@code PriorityQ}インターフェースのPairingHeapによる実装です。
+ * <p>{@code PriorityQ}インターフェースのPairing Heapによる実装です。
  * 規定の計算量(Amortized)が達成できるように実装しました。
  */
 public class PairingHeap implements PriorityQ {
@@ -97,9 +97,34 @@ public class PairingHeap implements PriorityQ {
 
 	private int mergePairs(int n) {
 		if(n < 0) return -1;
-		if(rightSib[n] < 0) return n;
-		int next = rightSib[rightSib[n]];
-		return merge(merge(n, rightSib[n]), mergePairs(next));
+
+		///////////(a)再帰を使わない実装////////////
+		int num = 1;
+		int rgt = n;
+		while(rightSib[rgt] != -1) {
+			num++;
+			rgt = rightSib[rgt];
+		}
+		int rt = -1;
+		if(num%2 == 1) {
+			rt = rgt;
+			rgt = leftSib[rt];
+		}
+
+		int pa = leftSib[n];
+		while(rgt != pa) {
+			int next = leftSib[leftSib[rgt]];
+			rt = merge(merge(leftSib[rgt], rgt), rt);
+			rgt = next;
+		}
+		return rt;
+		/////////////////////////////////////////
+
+		/////////(b)再帰による実装//////////
+//		if(rightSib[n] < 0) return n;
+//		int next = rightSib[rightSib[n]];
+//		return merge(merge(n, rightSib[n]), mergePairs(next));
+		////////////////////////////////
 	}
 
 	private int merge(int a, int b) {
