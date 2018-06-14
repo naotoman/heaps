@@ -2,7 +2,10 @@ package test;
 
 import heaps.FibonacciHeap;
 
-
+/*
+ * PairingHeapをテストするために用いたメイン関数を持つクラスです。
+ * それ以上の意味はありません。
+ */
 public class FibonacciTest {
 
 	private static final int N = 100;
@@ -17,7 +20,7 @@ public class FibonacciTest {
 		}
 
 		FibonacciHeap hp = new FibonacciHeap(ary);
-		
+
 		for(int i=0; i<20; i++) {
 		hp.decreaseValue((int)(Math.random()*N), (int)(Math.random()*50));
 	}

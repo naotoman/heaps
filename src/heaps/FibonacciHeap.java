@@ -92,7 +92,7 @@ public class FibonacciHeap implements PriorityQ {
 	@Override
 	public void deleteMin() {
 		if(size-- == 1) return;
-		if(child[head] != -1) {//markを工夫すれば不要？
+		if(child[head] != -1) {
 			int ch = child[head];
 			parent[ch] = -1;
 			while(right[ch] != child[head]) {
@@ -183,11 +183,11 @@ public class FibonacciHeap implements PriorityQ {
 
 	private void cascadingCut(int y) {
 		int z = parent[y];
-		if(mark[y]) {
+		if(mark[y] && z != -1) {
 			cut(y, z);
 			cascadingCut(z);
 		}
-		else if(z != -1) {
+		else {
 			mark[y] = true;
 		}
 	}

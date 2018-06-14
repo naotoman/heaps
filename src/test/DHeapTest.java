@@ -2,7 +2,7 @@ package test;
 
 import heaps.D_Heap;
 
-/**
+/*
  * D_Heapをテストするために用いたメイン関数を持つクラスです。
  * それ以上の意味はありません。
  */

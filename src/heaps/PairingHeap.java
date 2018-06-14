@@ -83,7 +83,7 @@ public class PairingHeap implements PriorityQ {
 	public void decreaseValue(int key, int d) {
 		val[key] -= d;
 		if(key == root) return;
-		if(rightSib[key] >= 0) {
+		if(rightSib[key] != -1) {
 			leftSib[rightSib[key]] = leftSib[key];
 		}
 		if(leftCh[leftSib[key]] == key) {
@@ -133,7 +133,7 @@ public class PairingHeap implements PriorityQ {
 		if(val[a] > val[b]) {
 			int tmp = a; a = b; b = tmp;//swap(a, b)
 		}
-		if(leftCh[a] >= 0) {
+		if(leftCh[a] != -1) {
 			leftSib[leftCh[a]] = b;
 		}
 		rightSib[b]= leftCh[a];

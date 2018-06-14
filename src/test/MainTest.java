@@ -5,6 +5,7 @@ import heaps.FibonacciHeap;
 import heaps.PairingHeap;
 import heaps.PriorityQ;
 
+
 public class MainTest {
 
 	private static final int N = 1000000;
