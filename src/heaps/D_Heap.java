@@ -1,7 +1,7 @@
 package heaps;
 
 /**
- * <p>{@code PriorityQ}インターフェースのd-ary heapによる実装です。
+ * <p>{@code PriorityQ}インターフェースのd-ary heapによる実装です。高速です。
  * コンストラクタで何分木にするか指定します。
  */
 public class D_Heap implements PriorityQ {

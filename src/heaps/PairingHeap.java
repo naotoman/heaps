@@ -3,7 +3,7 @@ package heaps;
 import java.util.Arrays;
 
 /**
- * <p>{@code PriorityQ}インターフェースのPairing Heapによる実装です。
+ * <p>{@code PriorityQ}インターフェースのPairing Heapによる実装です。高速です。
  * 規定の計算量(Amortized)が達成できるように実装しました。
  */
 public class PairingHeap implements PriorityQ {

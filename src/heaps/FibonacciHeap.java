@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  * <p>{@code PriorityQ}インターフェースのFibonacci Heapによる実装です。
- * 規定の計算量(Amortized)が達成できるように実装しました。
+ * 規定の計算量(Amortized)が達成できるように実装しました。しかし、実際はかなり遅いです。
  */
 public class FibonacciHeap implements PriorityQ {
 
