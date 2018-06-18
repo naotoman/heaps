@@ -23,17 +23,18 @@ public class DijkstraBenchMark {
 	}
 
 
-	private static final Random rand = new Random(129090139L);
+	private static final Random rand = new Random(45290139L);
 
 	private static final int N = 10000;//頂点数
-	private static final int E = 40000000;//辺数
-	private static final int MAX_W = 20;
+	private static final int E = 30000000;//辺数
+	private static final int MAX_W = 10;
 
 	private static List<List<Edge>> graph = new ArrayList<>(N);//有向グラフ（強連結であることを保証していない）
 
 
 	public static void main(String[] args) {
 		makeGraph();
+		System.out.println("graph created.");
 		double mil = 1000000;
 
 //		System.out.println("D_Heap: " + test(0)/mil);
@@ -60,7 +61,7 @@ public class DijkstraBenchMark {
 
 	private static long test(int x) {
 		int[] dist = new int[N];
-		Arrays.fill(dist, 1<<20);
+		Arrays.fill(dist, 1<<25);
 		dist[0] = 0;
 		PriorityQ hp = null;
 		long start = System.nanoTime();
@@ -98,18 +99,12 @@ public class DijkstraBenchMark {
 			for(int i=0; i<outDeg[v]; i++) {
 				int x = rand.nextInt(top);
 				top--;
-				int u = vSeq[x];
-				vSeq[x] = vSeq[top];
-				vSeq[top] = u;
-				if(u == v) {
-					i--;
-					continue;
-				}
-				Edge e = new Edge(rand.nextInt(MAX_W)+1, u);
+				swap(vSeq, x, top);
+				if(vSeq[top] == v) {i--; continue;}
+				Edge e = new Edge(rand.nextInt(MAX_W)+1, vSeq[top]);
 				graph.get(v).add(e);
 			}
 		}
-
 
 	}
 
@@ -120,17 +115,19 @@ public class DijkstraBenchMark {
 			deg[v]++;
 			if(deg[v] == N-1) {
 				top--;
-				int tmp = deg[v];
-				deg[v] = deg[top];
-				deg[top] = tmp;
+				swap(deg, v, top);
 			}
 		}
 		//shuffle
 		for(int i=0; i<N; i++) {
 			int x = rand.nextInt(N);
-			int tmp = deg[i];
-			deg[i] = deg[x];
-			deg[x] = tmp;
+			swap(deg, i, x);
 		}
+	}
+
+	private static void swap(int[] ma, int i, int j) {
+		int tmp = ma[i];
+		ma[i]= ma[j];
+		ma[j] = tmp;
 	}
 }
