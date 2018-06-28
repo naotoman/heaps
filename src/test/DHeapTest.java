@@ -8,7 +8,7 @@ import heaps.D_Heap;
  */
 public class DHeapTest {
 
-	private static final int N = 30;
+	private static final int N = 31;
 
 	public static void main(String[] args) {
 
